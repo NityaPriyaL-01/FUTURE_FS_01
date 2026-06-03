@@ -21,11 +21,11 @@ Showcasing my projects, skills, and experience as an ECE Engineer & Full Stack D
 
 ## 🚀 Projects Included
 
-### 💻 Software (Upcoming)
-- Personal Portfolio Website
-- miniCRM — Client Lead Management System
-- Local Business Website
-- Live Pitch Project
+### 💻 Software 
+- Personal Portfolio Website(completed)
+- miniCRM — Client Lead Management System(upcoming)
+- Local Business Website(upcoming)
+
 
 ### ⚙️ Hardware (Completed)
 - IR Proximity Sensor
