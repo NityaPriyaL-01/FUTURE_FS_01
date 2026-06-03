@@ -650,7 +650,115 @@
   }
   .contact-link-value { font-size: 0.88rem; color: var(--text2); }
 
-  /* FOOTER */
+  /* CONTACT FORM */
+  .contact-form {
+    margin-top: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 40px;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-form::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--blue), transparent);
+  }
+  .form-header { margin-bottom: 28px; }
+  .form-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .form-sub { font-size: 0.88rem; color: var(--text2); }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .form-group label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text3); }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+  }
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent), #6d28d9);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 0 30px rgba(139,92,246,0.3);
+    margin-top: 8px;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(139,92,246,0.5); }
+  .btn-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+  .form-success {
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 4px;
+    color: var(--green);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .form-error {
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: rgba(244,114,182,0.1);
+    border: 1px solid rgba(244,114,182,0.3);
+    border-radius: 4px;
+    color: var(--pink);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  @media (max-width: 768px) {
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 24px; }
+  }
   footer {
     padding: 32px 60px;
     border-top: 1px solid var(--border);
@@ -1168,6 +1276,41 @@
         </div>
       </a>
     </div>
+
+    <!-- CONTACT FORM -->
+    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form reveal">
+      <div class="form-header">
+        <span class="form-tag">// Send a Message</span>
+        <p class="form-sub">Fill in the form and I'll get back to you soon.</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What's this about?" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">Send Message →</span>
+      </button>
+      <div id="formSuccess" class="form-success" style="display:none;">
+        ✓ Message sent! I'll get back to you soon.
+      </div>
+      <div id="formError" class="form-error" style="display:none;">
+        ✗ Something went wrong. Please try again.
+      </div>
+    </form>
   </div>
 </section>
 
@@ -1214,7 +1357,40 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
 
-  // Mobile nav
+  // Contact form
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const success = document.getElementById('formSuccess');
+      const error = document.getElementById('formError');
+      btn.disabled = true;
+      btnText.textContent = 'Sending...';
+      success.style.display = 'none';
+      error.style.display = 'none';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          success.style.display = 'block';
+          form.reset();
+          btnText.textContent = 'Send Message →';
+        } else {
+          error.style.display = 'block';
+          btnText.textContent = 'Send Message →';
+        }
+      } catch {
+        error.style.display = 'block';
+        btnText.textContent = 'Send Message →';
+      }
+      btn.disabled = false;
+    });
+  }
   document.getElementById('navToggle').addEventListener('click', () => {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
