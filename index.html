@@ -16,9 +16,9 @@
     --accent2: #a78bfa;
     --accent3: #c4b5fd;
     --gold: #f0c060;
-    --text: #e8e8f0;
-    --text2: #9090b0;
-    --text3: #5a5a7a;
+    --text: #ffffff;
+    --text2: #c8c8d8;
+    --text3: #7a7a9a;
     --green: #34d399;
     --blue: #60a5fa;
     --pink: #f472b6;
@@ -129,16 +129,6 @@
     background-size: 60px 60px;
   }
   .hero-content { position: relative; z-index: 1; max-width: 900px; }
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--accent2);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
   .hero-name {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(3.5rem, 8vw, 7rem);
@@ -150,8 +140,8 @@
     animation: fadeUp 0.8s 0.4s forwards;
   }
   .hero-name .highlight {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(139,92,246,0.6);
+    color: #ffffff;
+    -webkit-text-stroke: 0;
   }
   .hero-role {
     font-family: 'Cormorant Garamond', serif;
@@ -448,7 +438,22 @@
     border-radius: 2px;
   }
   .project-link:hover { gap: 10px; color: var(--accent3); border-color: var(--accent2); }
-  .project-link svg { width: 12px; height: 12px; }
+  .project-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .future-interns-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .future-interns-badge::before { content: '⚡'; font-size: 0.65rem; }
   .project-link.coming-soon {
     color: var(--text3);
     border-color: var(--border);
@@ -691,7 +696,78 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* HAMBURGER */
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 300px; height: 300px; background: rgba(139,92,246,0.12); top: 10%; right: 15%; animation-delay: 0s; }
+  .orb-2 { width: 200px; height: 200px; background: rgba(96,165,250,0.08); bottom: 20%; left: 10%; animation-delay: 3s; }
+  .orb-3 { width: 150px; height: 150px; background: rgba(244,114,182,0.07); top: 50%; right: 30%; animation-delay: 5s; }
+  @keyframes orbFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* Typewriter tag */
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent2);
+    display: inline-block;
+  }
+
+  /* Glow on project cards hover */
+  .project-card.software:hover { box-shadow: 0 16px 48px rgba(52,211,153,0.08), 0 0 0 1px rgba(52,211,153,0.15); }
+  .project-card.hardware:hover { box-shadow: 0 16px 48px rgba(240,192,96,0.08), 0 0 0 1px rgba(240,192,96,0.15); }
+
+  /* Section number glow */
+  .section-num { text-shadow: 0 0 20px rgba(139,92,246,0.4); }
+
+  /* Skill tag hover glow */
+  .skill-tag:hover { box-shadow: 0 0 16px rgba(139,92,246,0.25); }
+
+  /* About text white */
+  .about-text p { color: #ffffff; }
+  .about-text p span { color: var(--accent2); }
+
+  /* Detail card value white */
+  .detail-value { color: #ffffff; }
+
+  /* Project desc white */
+  .project-desc { color: #d0d0e0; }
+
+  /* Exp points white */
+  .exp-points li { color: #d0d0e0; }
+
+  /* Edu institution white */
+  .edu-institution { color: #d0d0e0; }
+
+  /* Contact link value white */
+  .contact-link-value { color: #ffffff; }
+
+  /* Skill tag text white */
+  .skill-tag { color: #ffffff; }
+  .skill-tag:hover { color: #ffffff; }
+
+  /* Hero desc white */
+  .hero-desc { color: #d8d8e8; }
+
+  /* Hero full name white */
+  .hero-name { color: #ffffff; }
   .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; }
   .nav-toggle span { width: 24px; height: 1px; background: var(--text2); transition: 0.3s; }
 
@@ -733,8 +809,11 @@
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
   <div class="hero-content">
-    <p class="hero-tag">// ECE Engineer & Developer</p>
+    <p class="hero-tag">Full Stack Developer & ECE Engineer</p>
     <h1 class="hero-name">
       Nitya<br>
       <span class="highlight">Priya L</span>
@@ -781,14 +860,6 @@
       <div class="detail-card">
         <div class="detail-label">CGPA</div>
         <div class="detail-value">8.35 / 10</div>
-      </div>
-      <div class="detail-card">
-        <div class="detail-label">Email</div>
-        <div class="detail-value">lavadinityapriya@gmail.com</div>
-      </div>
-      <div class="detail-card">
-        <div class="detail-label">Phone</div>
-        <div class="detail-value">+91 62812 10256</div>
       </div>
       <div class="detail-card">
         <div class="detail-label">Languages</div>
@@ -877,6 +948,7 @@
 
     <div class="project-card software reveal">
       <div class="project-status status-finished">Completed</div>
+      <div class="future-interns-badge">Future Interns Project</div>
       <div class="project-type sw">Software · Full Stack</div>
       <h3 class="project-title">Personal Portfolio Website</h3>
       <p class="project-desc">A fully responsive personal portfolio website to showcase projects, skills, and experience — built from scratch with clean HTML/CSS/JS. Designed with a professional dark aesthetic and smooth animations.</p>
@@ -886,7 +958,7 @@
           <span class="tech-pill">CSS</span>
           <span class="tech-pill">JavaScript</span>
         </div>
-        <a href="https://github.com/NityaPriyaL-01/FUTURE_FS_01" target="_blank" class="project-link"></a>
+        <a href="https://github.com/NityaPriyaL-01/FUTURE_FS_01" target="_blank" class="project-link">
           GitHub
           <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
@@ -895,6 +967,7 @@
 
     <div class="project-card software reveal">
       <div class="project-status status-upcoming">Upcoming</div>
+      <div class="future-interns-badge">Future Interns Project</div>
       <div class="project-type sw">Software · Full Stack</div>
       <h3 class="project-title">miniCRM — Client Lead Management</h3>
       <p class="project-desc">A lightweight CRM web application to manage client leads, track interactions, and monitor pipeline stages. Built with full stack web technologies to simulate real-world business workflows for small teams.</p>
@@ -914,6 +987,7 @@
 
     <div class="project-card software reveal">
       <div class="project-status status-upcoming">Upcoming</div>
+      <div class="future-interns-badge">Future Interns Project</div>
       <div class="project-type sw">Software · Full Stack</div>
       <h3 class="project-title">Local Business Website</h3>
       <p class="project-desc">A professional multi-page website designed for a local business — featuring service listings, contact forms, and a clean responsive layout. Focused on delivering a real-client experience with attention to UX and performance.</p>
@@ -923,23 +997,6 @@
           <span class="tech-pill">CSS</span>
           <span class="tech-pill">JS</span>
           <span class="tech-pill">Responsive</span>
-        </div>
-        <a href="https://github.com/NityaPriyaL-01" target="_blank" class="project-link"></a>
-          GitHub
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="project-card software reveal">
-      <div class="project-status status-live">Live Pitch</div>
-      <div class="project-type sw">Software · Full Stack</div>
-      <h3 class="project-title">Live Pitch Project</h3>
-      <p class="project-desc">A live project developed and presented as part of the Future Interns Fellowship — a real-world full stack build pitched to mentors, showcasing end-to-end development capability from design to deployment.</p>
-      <div class="project-footer">
-        <div class="project-tech">
-          <span class="tech-pill">Full Stack</span>
-          <span class="tech-pill">HTML/CSS/JS</span>
         </div>
         <a href="https://github.com/NityaPriyaL-01" target="_blank" class="project-link">
           GitHub
